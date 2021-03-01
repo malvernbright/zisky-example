@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Zisky SDK</string>
-    <string name="check_balance">Balance Enquiry</string>
+    <string name="app_name">USSD Automation</string>
+    <string name="check_balance">Buy Airtime</string>
 </resources>
