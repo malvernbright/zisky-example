@@ -1,4 +1,4 @@
-package co.zisky.android;
+package com.mgsuperuser.androidzisky;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,7 +24,7 @@ import static co.zisky.ussd.sdk.Constants.USSD_STATUS;
 public class MainActivity extends AppCompatActivity {
 
 
-	public static final String INTENT_FILTER_PACKAGE = "co.zisky.android.TRANSACTION_CONFIRMATION";
+	public static final String INTENT_FILTER_PACKAGE = "com.mgsuperuser.androidzisky.TRANSACTION_CONFIRMATION";
 	private Button button;
 	private TextView textView;
 	@Override
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 		button.setOnClickListener(view -> {
 			Intent intent = new USSDParameters
 					.Builder(getBaseContext())
-					.processId("5f4754a62d9e216affc4f1ba")  //required Action ID
+					.processId("603cdfb339856f5ad593d209")  //required Action ID
 					.build();
 
 			startActivity(intent);
@@ -99,3 +99,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 	};
 }
+
+// *111*4*1*1*20*pin*1#
+
+// Insufficient funds to process this transaction, please fund the account

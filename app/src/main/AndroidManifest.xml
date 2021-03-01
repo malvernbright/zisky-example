@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="co.zisky.android">
+        package="com.mgsuperuser.androidzisky">
 
     <application
             android:allowBackup="true"
@@ -11,7 +11,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:replace="android:theme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mgsuperuser.androidzisky.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
         </activity>
         <meta-data
                 android:name="co.zisky.ApiKey"
-                android:value="5f4753032d9e216affc4f1b9"/>
+                android:value="603cdf0b39856f5ad593d208"/>
     </application>
 
 </manifest>

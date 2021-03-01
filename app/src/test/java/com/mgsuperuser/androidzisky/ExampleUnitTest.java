@@ -1,4 +1,4 @@
-package co.zisky.android;
+package com.mgsuperuser.androidzisky;
 
 import org.junit.Test;
 
