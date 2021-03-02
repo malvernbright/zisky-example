@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="OneMoney Balance Enquiry Example" />
+        android:text="@string/myvendor_auto" />
 
     <TextView
         android:id="@+id/txt_balance"
@@ -26,6 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/check_balance" />
+        android:text="@string/subscribe_btn" />
 
 </RelativeLayout>

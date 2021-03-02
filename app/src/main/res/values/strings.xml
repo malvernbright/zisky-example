@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">USSD Automation</string>
-    <string name="check_balance">Buy Airtime</string>
+    <string name="app_name">MyVendor Auto Example</string>
+    <string name="subscribe_btn">Subscribe and Use</string>
+    <string name="myvendor_auto">MyVendor Auto Example</string>
+    <string name="amazing">You are Just Amazing</string>
+    <string name="success_page">This is a Success Page</string>
 </resources>

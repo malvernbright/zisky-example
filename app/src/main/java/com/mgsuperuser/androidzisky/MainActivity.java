@@ -1,9 +1,11 @@
 package com.mgsuperuser.androidzisky;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -28,14 +30,20 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private TextView textView;
 
+    private SharedPreferences sp;
+    private Intent successIntent = new Intent();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initializeLogic();
+        initialize(savedInstanceState);
         ZiSky.init(this);
         button = findViewById(R.id.btn_check_balance);
         textView = findViewById(R.id.txt_balance);
+
         button.setOnClickListener(view -> {
             Intent intent = new USSDParameters
                     .Builder(getBaseContext())
@@ -44,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
             startActivity(intent);
         });
+
+        sp = getSharedPreferences("sp", Activity.MODE_PRIVATE);
+
+
+    }
+
+    private void initialize(Bundle savedInstanceState) {
+    }
+
+
+    private void initializeLogic() {
     }
 
     @Override
@@ -52,14 +71,41 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(INTENT_FILTER_PACKAGE);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(messageReceiver, intentFilter);
+
+        if (textView.getText().toString().contains("successfully")) {
+            sp.edit().putString("successTransaction", "successTransaction").apply();
+            successIntent.setClass(getApplicationContext(), SuccessPage.class);
+            startActivity(successIntent);
+        }
+
+        if (sp.getString("successTransaction", "").contains("successTransaction")) {
+            successIntent.setClass(getApplicationContext(), SuccessPage.class);
+            startActivity(successIntent);
+
+        } else {
+            Toast toast = Toast.makeText(this, "Looks like you haven't paid, pls pay", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (messageReceiver != null) {
+            if (sp.getString("successTransaction", "").equals("successTransaction")) {
+                successIntent.setClass(getApplicationContext(), SuccessPage.class);
+                startActivity(successIntent);
+            }
             unregisterReceiver(messageReceiver);
         }
+
+
     }
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
@@ -74,15 +120,18 @@ public class MainActivity extends AppCompatActivity {
                     && intent.hasExtra(USSD_STATUS)
                     && intent.getStringExtra(USSD_STATUS).equals(ParserType.SUCCESS.toString())
                     && parsed_variables != null && !parsed_variables.isEmpty()) {
-//                Intent successIntent = new Intent();
-//                successIntent.setClass(getApplicationContext(), SuccessPage.class);
-//                startActivity(successIntent);
+
                 if (parsed_variables != null && !parsed_variables.isEmpty() && parsed_variables.containsKey("confirmCode")) {
                     String defaultValue = "PP210301.1753.L69700";
                     String balance = parsed_variables.get("confirmCode");
                     if (balance != defaultValue) {
                         textView.setText(intent.getStringExtra(USSD_MESSAGE));
 
+                        Toast toast = Toast.makeText(MainActivity.this, "So you've paid " + sp.getString("successTransaction", ""), Toast.LENGTH_LONG);
+                        toast.show();
+
+                        successIntent.setClass(getApplicationContext(), SuccessPage.class);
+                        startActivity(successIntent);
                     } else if (intent.hasExtra(USSD_MESSAGE) && intent.hasExtra(USSD_STATUS)
                             && USSD_STATUS.equals(ParserType.PENDING.toString())) {
                         Toast.makeText(getBaseContext(), intent.getStringExtra(USSD_MESSAGE),
