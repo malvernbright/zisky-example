@@ -26,7 +26,7 @@ import static co.zisky.ussd.sdk.Constants.USSD_STATUS;
 public class MainActivity extends AppCompatActivity {
 
 
-    public static final String INTENT_FILTER_PACKAGE = "co.zisky.android.TRANSACTION_CONFIRMATION";
+    public static final String INTENT_FILTER_PACKAGE = "co.zisky.android.TRANSACTION_CONFIRMATION"; // Manifest package-name
     private Button button;
     private TextView textView;
 
